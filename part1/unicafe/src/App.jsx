@@ -6,14 +6,37 @@ const Statistics = ({ good, neutral, bad }) => {
   const average = total / 3
   const positive = total === 0 ? 0 : (good / total) * 100
 
+  const boxStyle = {
+    borderStyle: 'solid',
+    borderWidth: '1px',
+    borderColor: 'black',
+    borderRadius: '5px',
+    textAlign: 'left',
+    display: 'inline-block',
+    padding: '10px',
+    width: '200px',
+    boxSizing: 'border-box'
+  }
+
+  if (total === 0) {
+    return (
+      <div style={{
+        ...boxStyle,
+        color: 'red'
+      }}>
+        <p><strong>No Feedback Yet</strong></p>
+      </div>
+    )
+  }
+
   return (
-    <div>
+    <div style={boxStyle}>
       <p>good {good}</p>
       <p>neutral {neutral}</p>
       <p>bad {bad}</p>
       <p>all {total}</p>
-      <p>average {average}</p>
-      <p>positive {positive}</p>
+      <p>average {average.toFixed(2)}</p>
+      <p>positive {positive.toFixed(2)} %</p>
     </div>
   )
 
