@@ -35,8 +35,8 @@ const Statistics = ({ good, neutral, bad }) => {
       <p>neutral {neutral}</p>
       <p>bad {bad}</p>
       <p>all {total}</p>
-      <p>average {average.toFixed(2)}</p>
-      <p>positive {positive.toFixed(2)} %</p>
+      <p>average {average.toFixed(1)}</p>
+      <p>positive {positive.toFixed(1)} %</p>
     </div>
   )
 
