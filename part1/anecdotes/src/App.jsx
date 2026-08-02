@@ -11,6 +11,41 @@ const anecdotes = [
   'The only way to go fast, is to go well.'
 ]
 
+const Anecdote = ({ anecdote, votes, title }) => (
+  <>
+    <h2>{title}</h2>
+    <p><strong>{anecdote}</strong></p>
+    <p>has {votes} votes</p>
+  </>
+)
+
+const Button = ({ text, handleClick }) => (
+  <button onClick={handleClick}>{text}</button>
+)
+
+const MostVotedAnecdote = ({ votes }) => {
+  const maxVote = Math.max(...votes)
+  const topIndex = votes
+    .map((voteCount, index) => (voteCount === maxVote ? index : -1))
+    .filter(index => index !== -1)
+
+  const randomTopIndex = topIndex[Math.floor(Math.random() * topIndex.length)]
+
+
+  if (maxVote === 0) {
+    return <div><p>No votes yet</p></div>
+  }
+
+  return (
+    <div>
+      <Anecdote
+        title="Most Voted Anecdote"
+        anecdote={anecdotes[randomTopIndex]}
+        votes={maxVote}
+      />
+    </div>
+  )
+}
 
 const App = () => {
 
@@ -28,13 +63,17 @@ const App = () => {
     setVotes(newVotes)
   }
 
+
   return (
     <div>
-      <h2>Anecdotes</h2>
-      <p><strong>{anecdotes[selected]}</strong></p>
-      <p>has {votes[selected]} votes</p>
-      <button onClick={voteAnecdote}>Vote</button>
-      <button onClick={getRandomAnecdote}>Next Anecdote</button>
+      <Anecdote
+        title="Anecdote"
+        anecdote={anecdotes[selected]}
+        votes={votes[selected]}
+      />
+      <Button text="Vote" handleClick={voteAnecdote} />
+      <Button text="Next Anecdote" handleClick={getRandomAnecdote} />
+      <MostVotedAnecdote votes={votes} />
     </div>
   )
 }
